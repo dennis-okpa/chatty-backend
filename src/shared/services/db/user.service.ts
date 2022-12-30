@@ -1,26 +1,47 @@
-// import { IAuthDocument } from '@auth/interfaces/auth.interface'
 import { UserModel } from '@user/models/user.schema'
-// import { Helpers } from '../../globals/helpers/helpers'
 import { IUserDocument } from '../../../features/user/interfaces/user.interface'
+import mongoose from 'mongoose'
 
 class UserService {
   public async addUserData(data: IUserDocument): Promise<void> {
     await UserModel.create(data)
   }
 
-  // public async createAuthUser(data: IAuthDocument): Promise<void> {
-  //   await AuthModel.create(data)
-  // }
+  public async getUserByAuthId(authId: string): Promise<IUserDocument> {
+    const users: IUserDocument[] = await UserModel.aggregate([
+      { $match: { authId: new mongoose.Types.ObjectId(authId) } },
+      { $lookup: { from: 'Auth', localField: 'authId', foreignField: '_id', as: 'authId' } },
+      { $unwind: '$authId' },
+      { $project: this.aggregateProject() }
+    ])
 
-  // public async getUserByUsernameOrEmail(username: string, email: string): Promise<IAuthDocument> {
-  //   const query = {
-  //     $or: [{ username: Helpers.firstLetterUppercase(username) }, { email: Helpers.lowerCase(email) }]
-  //   }
+    return users[0]
+  }
 
-  //   const user: IAuthDocument = (await AuthModel.findOne(query).exec()) as IAuthDocument
-
-  //   return user
-  // }
+  private aggregateProject() {
+    return {
+      _id: 1,
+      username: '$authId.username',
+      uId: '$authId.uId',
+      email: '$authId.email',
+      avatarColor: '$authId.avatarColor',
+      createdAt: '$authId.createdAt',
+      postsCount: 1,
+      work: 1,
+      school: 1,
+      quote: 1,
+      location: 1,
+      blocked: 1,
+      blockedBy: 1,
+      followersCount: 1,
+      followingCount: 1,
+      notifications: 1,
+      social: 1,
+      bgImageVersion: 1,
+      bgImageId: 1,
+      profilePicture: 1
+    }
+  }
 }
 
 export const userService: UserService = new UserService()

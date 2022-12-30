@@ -16,7 +16,7 @@ import { omit } from 'lodash'
 import { authQueue } from '../../../shared/services/queues/auth.queue'
 import { userQueue } from '@services/queues/userqueue'
 import JWT from 'jsonwebtoken'
-import { config } from '@root/config';
+import { config } from '@root/config'
 
 const userCache: UserCache = new UserCache()
 
