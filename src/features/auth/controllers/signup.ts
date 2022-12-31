@@ -14,7 +14,7 @@ import { IUserDocument } from '@user/interfaces/user.interface'
 import { UserCache } from '../../../shared/services/redis/user.cache'
 import { omit } from 'lodash'
 import { authQueue } from '../../../shared/services/queues/auth.queue'
-import { userQueue } from '@services/queues/userqueue'
+import { userQueue } from '@services/queues/user.queue'
 import JWT from 'jsonwebtoken'
 import { config } from '@root/config'
 

@@ -5,6 +5,8 @@ import { redisConnection } from './shared/services/redis/redis.connection'
 
 const log: Logger = config.createLogger('setupDatabase')
 
+mongoose.set('strictQuery', true)
+
 export default () => {
   const connect = () => {
     mongoose

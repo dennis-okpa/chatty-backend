@@ -3,10 +3,11 @@ import { createBullBoard } from '@bull-board/api'
 import { BullAdapter } from '@bull-board/api/bullAdapter'
 import { ExpressAdapter } from '@bull-board/express'
 import { config } from '@root/config'
+import { IEmailJob } from '@user/interfaces/user.interface'
 import Queue, { Job } from 'bull'
 import Logger from 'bunyan'
 
-type IBaseJobData = IAuthJob
+type IBaseJobData = IAuthJob | IEmailJob
 
 let bullAdapters: BullAdapter[] = []
 

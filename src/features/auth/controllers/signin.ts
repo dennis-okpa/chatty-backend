@@ -9,6 +9,7 @@ import { loginSchema } from '@auth/schemas/signin'
 import { IAuthDocument } from '@auth/interfaces/auth.interface'
 import { IUserDocument } from '../../user/interfaces/user.interface'
 import { userService } from '@services/db/user.service'
+import { mailTransport } from '../../../shared/services/emails/mail-transport'
 
 export class SignIn {
   @joiValidation(loginSchema)
@@ -37,6 +38,11 @@ export class SignIn {
         avatorColor: existingUser.avatarColor
       },
       config.JWT_TOKEN!
+    )
+    await mailTransport.sendEmail(
+      'viola.lind46@ethereal.email',
+      'Testing development',
+      'This is a test email to show that development email sender works'
     )
     req.session = { jwt: userJwt }
 
