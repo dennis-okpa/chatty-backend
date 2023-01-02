@@ -1,4 +1,4 @@
-import { userService } from '@services/db/user.service'
+import { userService } from '@service/db/user.service'
 import { Request, Response } from 'express'
 import HTTP_STATUS from 'http-status-codes'
 import { UserCache } from '../../../shared/services/redis/user.cache'

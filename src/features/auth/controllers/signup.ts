@@ -14,7 +14,7 @@ import { IUserDocument } from '@user/interfaces/user.interface'
 import { UserCache } from '../../../shared/services/redis/user.cache'
 import { omit } from 'lodash'
 import { authQueue } from '../../../shared/services/queues/auth.queue'
-import { userQueue } from '@services/queues/user.queue'
+import { userQueue } from '@service/queues/user.queue'
 import JWT from 'jsonwebtoken'
 import { config } from '@root/config'
 
@@ -45,7 +45,7 @@ export class SignUp {
 
     const result: UploadApiResponse = (await uploads(avatarImage, `${userObjectId}`, true, true)) as UploadApiResponse
 
-    if (!result.public_id) {
+    if (!result?.public_id) {
       throw new BadRequestError('File upload: Error occurred. Try again.')
     }
 

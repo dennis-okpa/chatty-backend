@@ -1,4 +1,4 @@
-import { BaseQueue } from '@services/queues/base.queue'
+import { BaseQueue } from '@service/queues/base.queue'
 import { IEmailJob } from '@user/interfaces/user.interface'
 import { emailWorker } from '@workers/email.worker'
 

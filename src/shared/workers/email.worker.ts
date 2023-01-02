@@ -1,7 +1,7 @@
 import { config } from '@root/config'
 import { DoneCallback, Job } from 'bull'
 import Logger from 'bunyan'
-import { mailTransport } from '../services/emails/mail-transport'
+import { mailTransport } from '@service/emails/mail.transport'
 
 const log: Logger = config.createLogger('emailWorker')
 
