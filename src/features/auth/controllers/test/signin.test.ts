@@ -35,7 +35,7 @@ describe('SignIn', () => {
     const res: Response = authMockResponse()
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Username is a required field')
+      expect(error.serializeErrors().message).toEqual('Username is a required field')
     })
   })
 
@@ -44,7 +44,7 @@ describe('SignIn', () => {
     const res: Response = authMockResponse()
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Invalid username')
+      expect(error.serializeErrors().message).toEqual('Invalid username')
     })
   })
 
@@ -53,7 +53,7 @@ describe('SignIn', () => {
     const res: Response = authMockResponse()
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Invalid username')
+      expect(error.serializeErrors().message).toEqual('Invalid username')
     })
   })
 
@@ -62,7 +62,7 @@ describe('SignIn', () => {
     const res: Response = authMockResponse()
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Password is a required field')
+      expect(error.serializeErrors().message).toEqual('Password is a required field')
     })
   })
 
@@ -71,7 +71,7 @@ describe('SignIn', () => {
     const res: Response = authMockResponse()
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Invalid password')
+      expect(error.serializeErrors().message).toEqual('Invalid password')
     })
   })
 
@@ -80,7 +80,7 @@ describe('SignIn', () => {
     const res: Response = authMockResponse()
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Invalid password')
+      expect(error.serializeErrors().message).toEqual('Invalid password')
     })
   })
 
@@ -92,7 +92,7 @@ describe('SignIn', () => {
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
       expect(authService.getAuthUserByUsername).toHaveBeenCalledWith(Helpers.firstLetterUppercase(req.body.username))
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Invalid credentials')
+      expect(error.serializeErrors().message).toEqual('Invalid credentials')
     })
   })
 
@@ -104,7 +104,7 @@ describe('SignIn', () => {
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
       expect(authService.getAuthUserByUsername).toHaveBeenCalledWith(Helpers.firstLetterUppercase(req.body.username))
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Invalid credentials')
+      expect(error.serializeErrors().message).toEqual('Invalid credentials')
     })
   })
 

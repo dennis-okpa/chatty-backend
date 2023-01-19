@@ -31,7 +31,7 @@ describe('Password', () => {
       const res: Response = authMockResponse()
       Password.prototype.create(req, res).catch((error: CustomError) => {
         expect(error.statusCode).toEqual(400)
-        expect(error.serializeError().message).toEqual('Field must be valid')
+        expect(error.serializeErrors().message).toEqual('Field must be valid')
       })
     })
 
@@ -41,7 +41,7 @@ describe('Password', () => {
       jest.spyOn(authService, 'getAuthUserByEmail').mockResolvedValue(null as any)
       Password.prototype.create(req, res).catch((error: CustomError) => {
         expect(error.statusCode).toEqual(400)
-        expect(error.serializeError().message).toEqual('Invalid credentials')
+        expect(error.serializeErrors().message).toEqual('Invalid credentials')
       })
     })
 
@@ -65,7 +65,7 @@ describe('Password', () => {
       const res: Response = authMockResponse()
       Password.prototype.update(req, res).catch((error: CustomError) => {
         expect(error.statusCode).toEqual(400)
-        expect(error.serializeError().message).toEqual('Password is a required field')
+        expect(error.serializeErrors().message).toEqual('Password is a required field')
       })
     })
 
@@ -74,7 +74,7 @@ describe('Password', () => {
       const res: Response = authMockResponse()
       Password.prototype.update(req, res).catch((error: CustomError) => {
         expect(error.statusCode).toEqual(400)
-        expect(error.serializeError().message).toEqual('Passwords should match')
+        expect(error.serializeErrors().message).toEqual('Passwords should match')
       })
     })
 
@@ -86,7 +86,7 @@ describe('Password', () => {
       jest.spyOn(authService, 'getAuthUserByPasswordToken').mockResolvedValue(null as any)
       Password.prototype.update(req, res).catch((error: CustomError) => {
         expect(error.statusCode).toEqual(400)
-        expect(error.serializeError().message).toEqual('Reset token has expired.')
+        expect(error.serializeErrors().message).toEqual('Reset token has expired.')
       })
     })
 
