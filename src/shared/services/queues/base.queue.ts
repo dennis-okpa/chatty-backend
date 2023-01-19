@@ -2,12 +2,13 @@ import { IAuthJob } from '@auth/interfaces/auth.interface'
 import { createBullBoard } from '@bull-board/api'
 import { BullAdapter } from '@bull-board/api/bullAdapter'
 import { ExpressAdapter } from '@bull-board/express'
+import { IPostJobData } from '@post/interfaces/post.interface'
 import { config } from '@root/config'
 import { IEmailJob } from '@user/interfaces/user.interface'
 import Queue, { Job } from 'bull'
 import Logger from 'bunyan'
 
-type IBaseJobData = IAuthJob | IEmailJob
+type IBaseJobData = IAuthJob | IEmailJob | IPostJobData
 
 let bullAdapters: BullAdapter[] = []
 

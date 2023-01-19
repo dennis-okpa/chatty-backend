@@ -1,19 +1,20 @@
-import { Application, json, urlencoded, Response, Request, NextFunction } from 'express'
-import http from 'http'
-import cors from 'cors'
-import helmet from 'helmet'
-import hpp from 'hpp'
-import compression from 'compression'
-import cookieSession from 'cookie-session'
-import HTTP_STATUS from 'http-status-codes'
-import { Server } from 'socket.io'
-import { createClient } from 'redis'
-import { createAdapter } from '@socket.io/redis-adapter'
-import Logger from 'bunyan'
-import 'express-async-errors'
+import { CustomError, IErrorResponse } from '@global/helpers/error-handler'
 import { config } from '@root/config'
 import applicationRoutes from '@root/routes'
-import { CustomError, IErrorResponse } from '@global/helpers/error-handler'
+import { createAdapter } from '@socket.io/redis-adapter'
+import Logger from 'bunyan'
+import compression from 'compression'
+import cookieSession from 'cookie-session'
+import cors from 'cors'
+import { Application, json, NextFunction, Request, Response, urlencoded } from 'express'
+import 'express-async-errors'
+import helmet from 'helmet'
+import hpp from 'hpp'
+import http from 'http'
+import HTTP_STATUS from 'http-status-codes'
+import { createClient } from 'redis'
+import { Server } from 'socket.io'
+import { SocketIOPostHandler } from './shared/sockets/post'
 
 const SERVER_PORT = 5000
 const log: Logger = config.createLogger('setupServer')
@@ -72,7 +73,7 @@ export class ChattyServer {
     app.use((error: IErrorResponse, _req: Request, res: Response, next: NextFunction) => {
       log.error(error)
       if (error instanceof CustomError) {
-        return res.status(error.statusCode).json(error.serializeError())
+        return res.status(error.statusCode).json(error.serializeErrors())
       }
       next()
     })
@@ -111,8 +112,9 @@ export class ChattyServer {
     })
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private socketIOConnections(io: Server): void {
-    log.info('socketIOConnections')
+    const postSocketHandler: SocketIOPostHandler = new SocketIOPostHandler(io)
+
+    postSocketHandler.listen()
   }
 }

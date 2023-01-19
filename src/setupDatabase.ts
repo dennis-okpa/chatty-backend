@@ -15,7 +15,7 @@ export default () => {
         log.info('Successfully connected to database')
         redisConnection.connect()
       })
-      .catch((error) => {
+      .catch(error => {
         log.error('Error connecting to database', error)
         return process.exit(1)
       })

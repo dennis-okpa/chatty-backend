@@ -56,7 +56,7 @@ describe('SignUp', () => {
 
     testSignUpError((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Username is a required field')
+      expect(error.serializeErrors().message).toEqual('Username is a required field')
     })
   })
 
@@ -67,7 +67,7 @@ describe('SignUp', () => {
 
     testSignUpError((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Invalid username')
+      expect(error.serializeErrors().message).toEqual('Invalid username')
     })
   })
 
@@ -78,7 +78,7 @@ describe('SignUp', () => {
 
     testSignUpError((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Invalid username')
+      expect(error.serializeErrors().message).toEqual('Invalid username')
     })
   })
 
@@ -89,7 +89,7 @@ describe('SignUp', () => {
 
     testSignUpError((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Email must be valid')
+      expect(error.serializeErrors().message).toEqual('Email must be valid')
     })
   })
 
@@ -100,7 +100,7 @@ describe('SignUp', () => {
 
     testSignUpError((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Email is a required field')
+      expect(error.serializeErrors().message).toEqual('Email is a required field')
     })
   })
 
@@ -111,7 +111,7 @@ describe('SignUp', () => {
 
     testSignUpError((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Password is a required field')
+      expect(error.serializeErrors().message).toEqual('Password is a required field')
     })
   })
 
@@ -122,7 +122,7 @@ describe('SignUp', () => {
 
     testSignUpError((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Invalid password')
+      expect(error.serializeErrors().message).toEqual('Invalid password')
     })
   })
 
@@ -133,7 +133,7 @@ describe('SignUp', () => {
 
     testSignUpError((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Invalid password')
+      expect(error.serializeErrors().message).toEqual('Invalid password')
     })
   })
 
@@ -144,7 +144,7 @@ describe('SignUp', () => {
 
     testSignUpError((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Invalid password')
+      expect(error.serializeErrors().message).toEqual('Invalid password')
     })
   })
 
@@ -155,7 +155,7 @@ describe('SignUp', () => {
 
     testSignUpError((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeError().message).toEqual('Invalid credentials')
+      expect(error.serializeErrors().message).toEqual('Invalid credentials')
     })
   })
 

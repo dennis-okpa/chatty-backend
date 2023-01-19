@@ -18,7 +18,7 @@
     "prettier:check": "prettier --check 'src/**/*.{ts,json}' --fix",
     "prettier:fix": "prettier --write 'src/**/*.{ts,json}'",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
-    "start": "nodemon ./build/app.js",
+    "start": "nodemon ./build/app.js | ./node_modules/.bin/bunyan",
     "test": "jest --coverage=true --maxWorkers=1 --forceExit --detectOpenHandles --watchAll=true"
   },
   "dependencies": {
@@ -28,6 +28,7 @@
     "@socket.io/redis-adapter": "^7.2.0",
     "bcryptjs": "^2.4.3",
     "bull": "^4.10.2",
+    "bullmq": "^3.5.8",
     "bunyan": "^1.8.15",
     "cloudinary": "^1.32.0",
     "compression": "^1.7.4",
@@ -68,6 +69,7 @@
     "@types/jsonwebtoken": "^8.5.9",
     "@types/lodash": "^4.14.191",
     "@types/nodemailer": "^6.4.7",
+    "@types/redis-info": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.45.1",
     "@typescript-eslint/parser": "^5.45.1",
     "eslint": "^8.29.0",
