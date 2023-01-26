@@ -3,8 +3,9 @@ import { RedisCommandRawReply } from '@redis/client/dist/lib/commands'
 import { config } from '@root/config'
 import { BaseCache } from '@service/redis/base.cache'
 import Logger from 'bunyan'
-import { ISavePostToCache, IReactions, IPostDocument } from '@post/interfaces/post.interface'
+import { ISavePostToCache, IPostDocument } from '@post/interfaces/post.interface'
 import { ServerError } from '../../globals/helpers/error-handler'
+import { IReactions } from '@reaction/interfaces/reaction.interface'
 
 const log: Logger = config.createLogger('postCache')
 

@@ -19,7 +19,9 @@
     "prettier:fix": "prettier --write 'src/**/*.{ts,json}'",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "start": "nodemon ./build/app.js | ./node_modules/.bin/bunyan",
-    "test": "jest --coverage=true --maxWorkers=1 --forceExit --detectOpenHandles --watchAll=true"
+    "test": "jest --coverage=true --maxWorkers=1 --forceExit --detectOpenHandles --watchAll=true",
+    "test:ci": "jest --coverage=true --watchAll=false",
+    "redis:cmd": "redis-commander --port 3001"
   },
   "dependencies": {
     "@bull-board/express": "^4.9.0",
