@@ -1,0 +1,64 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+###
+POST {{baseUrl}}/{{urlPath}}/post/reaction
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "userTo": "63ae935bda4da00c834978d4",
+  "postId": "63d0a97c751acac060bc9667",
+  "type": "happy",
+  "previousReaction": "",
+  "postReactions": {"like": 0, "love": 0, "wow": 0, "happy": 1, "sad": 0, "angry": 0},
+  "profilePicture": "https://res/cloudinary.com/dc3yjartc/image/upload/v1672385371/63ae935bda4da00c834978d4"
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/post/reaction
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "userTo": "63d20f44fd61db9785c53608",
+  "postId": "63d20dfdfd61db9785c535fa",
+  "type": "happy",
+  "previousReaction": "",
+  "postReactions": {"like": 0, "love": 0, "wow": 0, "happy": 1, "sad": 0, "angry": 0},
+  "profilePicture": "https://res/cloudinary.com/dc3yjartc/image/upload/v1672385371/63ae935bda4da00c834978d4"
+}
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/post/reaction/63d0a97c751acac060bc9667/happy/{"like": 0, "love": 0, "wow": 0, "happy": 0, "sad": 0, "angry": 0}
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/63d0a97c751acac060bc9667
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/single/reaction/username/Manny/63d0a97c751acac060bc9667
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/username/Manny
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}

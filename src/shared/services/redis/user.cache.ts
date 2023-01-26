@@ -5,7 +5,7 @@ import { config } from '@root/config'
 import { ServerError } from '../../globals/helpers/error-handler'
 import { Helpers } from '../../globals/helpers/helpers'
 
-const log: Logger = config.createLogger('redisConnection')
+const log: Logger = config.createLogger('userCache')
 
 export class UserCache extends BaseCache {
   constructor() {
@@ -95,7 +95,7 @@ export class UserCache extends BaseCache {
     }
   }
 
-  public async getUserFromCache(userId: string): Promise<IUserDocument | null> {
+  public async getUserFromCache(userId: string): Promise<IUserDocument> {
     try {
       if (!this.client.isOpen) {
         await this.client.connect()
