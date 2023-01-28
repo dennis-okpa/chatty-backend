@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { UserCache } from '@service/redis/user.cache'
 import { IQueryReaction, IReactionDocument, IReactionJob } from '@reaction/interfaces/reaction.interface'
 import { ReactionModel } from '@reaction/models/reaction.schema'

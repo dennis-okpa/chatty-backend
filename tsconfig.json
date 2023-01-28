@@ -19,21 +19,19 @@
     "allowSyntheticDefaultImports": true,
     "pretty": true,
     "resolveJsonModule": true,
-    "plugins": [
-      { "transform": "typescript-transform-paths" },
-      { "transform": "typescript-transform-paths", "afterDeclarations": true }
-    ],
+    "plugins": [{ "transform": "typescript-transform-paths" }, { "transform": "typescript-transform-paths", "afterDeclarations": true }],
     "paths": {
       "@auth/*": ["src/features/auth/*"],
       "@user/*": ["src/features/user/*"],
       "@post/*": ["src/features/post/*"],
       "@reaction/*": ["src/features/reactions/*"],
+      "@comment/*": ["src/features/comments/*"],
       "@global/*": ["src/shared/globals/*"],
       "@service/*": ["src/shared/services/*"],
       "@socket/*": ["src/shared/sockets/*"],
       "@workers/*": ["src/shared/workers/*"],
       "@mocks/*": ["src/mocks/*"],
-      "@root/*": ["src/*"],
+      "@root/*": ["src/*"]
     }
   }
 }
