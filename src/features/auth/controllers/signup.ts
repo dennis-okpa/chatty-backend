@@ -1,6 +1,7 @@
 import { IAuthDocument } from '@auth/interfaces/auth.interface'
 import { signupSchema } from '@auth/schemas/signup'
 import { joiValidation } from '@global/decorators/joi-validations.decorators'
+import { IUserDocument } from '@user/interfaces/user.interface'
 import { UploadApiResponse } from 'cloudinary'
 import { Request, Response } from 'express'
 import HTTP_STATUS from 'http-status-codes'
@@ -9,14 +10,13 @@ import { uploads } from '../../../shared/globals/helpers/cloudinary-upload'
 import { BadRequestError } from '../../../shared/globals/helpers/error-handler'
 import { Helpers } from '../../../shared/globals/helpers/helpers'
 import { authService } from '../../../shared/services/db/auth.service'
-import { ISignUpData } from '../interfaces/auth.interface'
-import { IUserDocument } from '@user/interfaces/user.interface'
 import { UserCache } from '../../../shared/services/redis/user.cache'
-import { omit } from 'lodash'
-import { authQueue } from '../../../shared/services/queues/auth.queue'
+import { ISignUpData } from '../interfaces/auth.interface'
+// import { omit } from 'lodash'
+import { config } from '@root/config'
 import { userQueue } from '@service/queues/user.queue'
 import JWT from 'jsonwebtoken'
-import { config } from '@root/config'
+import { authQueue } from '../../../shared/services/queues/auth.queue'
 
 const userCache: UserCache = new UserCache()
 
@@ -37,8 +37,8 @@ export class SignUp {
     const authData: IAuthDocument = SignUp.prototype.signupData({
       _id: authObjectId,
       uId,
-      username,
       email,
+      username,
       password,
       avatarColor
     })
@@ -55,8 +55,8 @@ export class SignUp {
     await userCache.saveUserToCache(`${userObjectId}`, uId, userDataForCache)
 
     // Add to database
-    omit(userDataForCache, ['uId', 'username', 'email', 'avatarColor', 'password'])
-    authQueue.addAuthUserJob('addAuthUserToDB', { value: userDataForCache })
+    // omit(userDataForCache, ['uId', 'username', 'email', 'avatarColor', 'password'])
+    authQueue.addAuthUserJob('addAuthUserToDB', { value: authData })
     userQueue.addUserJob('addUserToDB', { value: userDataForCache })
 
     const userJwt: string = SignUp.prototype.signToken(authData, userObjectId)

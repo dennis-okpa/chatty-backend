@@ -13,15 +13,15 @@
     "check-redis": "brew services info redis",
     "test-redis": "redis-cli",
     "run-redis": "redis-server",
+    "redis-cmd": "redis-commander --port 3001",
     "lint:check": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint 'src/**/*.ts' --fix",
     "prettier:check": "prettier --check 'src/**/*.{ts,json}' --fix",
     "prettier:fix": "prettier --write 'src/**/*.{ts,json}'",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "start": "nodemon ./build/app.js | ./node_modules/.bin/bunyan",
-    "test": "jest --coverage=true --maxWorkers=1 --forceExit --detectOpenHandles --watchAll=true",
-    "test:ci": "jest --coverage=true --watchAll=false",
-    "redis:cmd": "redis-commander --port 3001"
+    "test": "jest --watch --coverage=true --maxWorkers=1 --forceExit --detectOpenHandles",
+    "test:ci": "jest --coverage=true --watchAll=false"
   },
   "dependencies": {
     "@bull-board/express": "^4.9.0",
