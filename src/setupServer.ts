@@ -2,6 +2,8 @@ import { CustomError, IErrorResponse } from '@global/helpers/error-handler'
 import { config } from '@root/config'
 import applicationRoutes from '@root/routes'
 import { createAdapter } from '@socket.io/redis-adapter'
+import { SocketIOFollowerHandler } from '@socket/follower'
+import { SocketIOUserHandler } from '@socket/user'
 import Logger from 'bunyan'
 import compression from 'compression'
 import cookieSession from 'cookie-session'
@@ -82,9 +84,9 @@ export class ChattyServer {
   private async startServer(app: Application): Promise<void> {
     try {
       const httpServer: http.Server = new http.Server(app)
-      const sucketIO: Server = await this.createSocketIO(httpServer)
+      const socketIO: Server = await this.createSocketIO(httpServer)
       this.startHttpServer(httpServer)
-      this.socketIOConnections(sucketIO)
+      this.socketIOConnections(socketIO)
     } catch (error) {
       log.error(error)
     }
@@ -114,7 +116,11 @@ export class ChattyServer {
 
   private socketIOConnections(io: Server): void {
     const postSocketHandler: SocketIOPostHandler = new SocketIOPostHandler(io)
+    const followerSocketHandler: SocketIOFollowerHandler = new SocketIOFollowerHandler(io)
+    const userSocketHandler: SocketIOUserHandler = new SocketIOUserHandler(io)
 
     postSocketHandler.listen()
+    followerSocketHandler.listen()
+    userSocketHandler.listen()
   }
 }
