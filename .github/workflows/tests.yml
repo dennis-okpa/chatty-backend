@@ -16,7 +16,21 @@ jobs:
         with:
           node-version: '14'
           cache: 'yarn'
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
+      - name: Cache node modules
+        uses: actions/cache@v1
+        id: restore-node-modules-from-cache
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install Node Modules
+        if: steps.restore-node-modules-from-cache.outputs.cache-hit != 'true'
+        id: install-node-modules
+        run: yarn install --frozen-lockfile --network-timeout 100000
+      - name: Run Typescript formatting checks
+        run: yarn type:check
+      - name: Run eslint formatting checks
+        run: yarn lint:check
+      - name: Run Prettier formatting checks
+        run: yarn prettier:check
       - name: Run tests
         run: yarn test:ci
