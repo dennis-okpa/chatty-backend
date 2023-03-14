@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { UserCache } from '@service/redis/user.cache'
 import { IQueryReaction, IReactionDocument, IReactionJob } from '@reaction/interfaces/reaction.interface'
 import { ReactionModel } from '@reaction/models/reaction.schema'
@@ -8,6 +7,11 @@ import { IPostDocument } from '@post/interfaces/post.interface'
 import { omit } from 'lodash'
 import mongoose from 'mongoose'
 import { Helpers } from '../../globals/helpers/helpers'
+import { INotificationDocument, INotificationTemplate } from '@root/features/notifications/interfaces/notification.interface'
+import { NotificationModel } from '@root/features/notifications/models/notification.schema'
+import { socketIONotificationObject } from '@socket/notification'
+import { notificationTemplate } from '@service/emails/templates/notifications/notification-template'
+import { emailQueue } from '@service/queues/email.queue'
 
 const userCache: UserCache = new UserCache()
 
@@ -33,7 +37,37 @@ class ReactionService {
       )
     ])) as unknown as [IUserDocument, IReactionDocument, IPostDocument]
 
-    // send reactions notifications
+    if (updatedReaction[0]?.notifications.reactions && userTo !== userFrom) {
+      const notificationModel: INotificationDocument = new NotificationModel()
+      const notifications = await notificationModel.insertNotification({
+        userTo: userTo as string,
+        userFrom: userFrom as string,
+        message: `${username} reacted to your post`,
+        notificationType: 'reaction',
+        entityId: new mongoose.Types.ObjectId(postId),
+        createdItemId: new mongoose.Types.ObjectId(updatedReaction[1]._id!),
+        createdAt: new Date(),
+        comment: '',
+        post: updatedReaction[2].post,
+        imgId: updatedReaction[2].imgId!,
+        imgVersion: updatedReaction[2].imgVersion!,
+        gifUrl: updatedReaction[2].gifUrl!,
+        reaction: ''
+      })
+      socketIONotificationObject.emit('insert notification', notifications, { userTo })
+
+      const templateParams: INotificationTemplate = {
+        username: updatedReaction[0].username!,
+        message: `${username} reacted to your post`,
+        header: 'Post Reaction Notification'
+      }
+      const template: string = notificationTemplate.notificationMessageTemplate(templateParams)
+      emailQueue.addEmailJob('reactionsEmail', {
+        receiverEmail: updatedReaction[0].email!,
+        template,
+        subject: 'Post Reaction Notification'
+      })
+    }
   }
 
   public async removeReactionDataFromDB(reactionData: IReactionJob): Promise<void> {

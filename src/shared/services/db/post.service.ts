@@ -1,10 +1,9 @@
-import { IPostDocument, IGetPostsQuery, IQueryComplete } from '@post/interfaces/post.interface'
+import { IGetPostsQuery, IPostDocument, IQueryComplete } from '@post/interfaces/post.interface'
 import { PostModel } from '@post/models/post.schema'
 import { IUserDocument } from '@user/interfaces/user.interface'
 import { UserModel } from '@user/models/user.schema'
 import { Query, UpdateQuery } from 'mongoose'
 import { IQueryDeleted } from '../../../features/post/interfaces/post.interface'
-import { updatedPost } from '../../../mocks/post.mock'
 
 class PostService {
   public async addPostToDB(userId: string, createdPost: IPostDocument): Promise<void> {
