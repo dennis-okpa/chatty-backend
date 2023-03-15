@@ -12,6 +12,7 @@ class RedisConnection extends BaseCache {
   async connect(): Promise<void> {
     try {
       await this.client.connect()
+      log.info('Redis connection: PONG')
     } catch (error) {
       log.error(error)
     }
