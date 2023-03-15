@@ -13,7 +13,7 @@ withCredentials: true
   "type": "happy",
   "previousReaction": "",
   "postReactions": {"like": 0, "love": 0, "wow": 0, "happy": 1, "sad": 0, "angry": 0},
-  "profilePicture": "https://res/cloudinary.com/dc3yjartc/image/upload/v1672385371/63ae935bda4da00c834978d4"
+  "profilePicture": "https://res.cloudinary.com/dc3yjartc/image/upload/v1672385371/63ae935bda4da00c834978d4"
 }
 
 ###
@@ -28,7 +28,7 @@ withCredentials: true
   "type": "happy",
   "previousReaction": "",
   "postReactions": {"like": 0, "love": 0, "wow": 0, "happy": 1, "sad": 0, "angry": 0},
-  "profilePicture": "https://res/cloudinary.com/dc3yjartc/image/upload/v1672385371/63ae935bda4da00c834978d4"
+  "profilePicture": "https://res.cloudinary.com/dc3yjartc/image/upload/v1672385371/63ae935bda4da00c834978d4"
 }
 
 ###
