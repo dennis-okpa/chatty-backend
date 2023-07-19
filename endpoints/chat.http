@@ -15,6 +15,46 @@ withCredentials: true
   "receiverProfilePicture": "https://res/cloudinary.com/dc3yjartc/image/upload/v1678757327/640fcdce54e4d346fd8c80ab",
   "body": "Hope you are good",
   "gifUrl": "",
-  "isRead": true,
+  "isRead": false,
   "selectedImage": ""
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/chat/message/add-chat-users
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "userOne": "640fcdba54e4d346fd8c809d",
+  "userTwo": "640fcdc654e4d346fd8c80a4"
+}
+
+###
+GET {{baseUrl}}/{{urlPath}}/chat/message/conversation-list
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/chat/message/user/640fcdce54e4d346fd8c80ab
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/chat/message/mark-as-deleted/6454f73ae4967c0ca2abbcb8/640fcdba54e4d346fd8c809d/640fcdce54e4d346fd8c80ab/deleteForEveryone
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+PUT {{baseUrl}}/{{urlPath}}/chat/message/mark-as-read
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "senderId": "640fcdba54e4d346fd8c809d",
+  "receiverId": "640fcdc654e4d346fd8c80a4"
 }

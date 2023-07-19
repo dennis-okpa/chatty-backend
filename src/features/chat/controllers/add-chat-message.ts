@@ -15,6 +15,7 @@ import HTTP_STATUS from 'http-status-codes'
 import { ObjectId } from 'mongodb'
 import mongoose from 'mongoose'
 import { IMessageNotification } from '../interfaces/chat.interface'
+import { chatQueue } from '@service/queues/chat.queue'
 
 const userCache: UserCache = new UserCache()
 const messageCache: MessageCache = new MessageCache()
@@ -68,7 +69,6 @@ export class Add {
       deleteForEveryone: false,
       deleteForMe: false
     }
-
     Add.prototype.emitSocketMessage(messageData)
 
     if (!isRead) {
@@ -84,9 +84,21 @@ export class Add {
     await messageCache.addChatListToCache(`${req.currentUser!.userId}`, `${receiverId}`, `${conversationObjectId}`)
     await messageCache.addChatListToCache(`${receiverId}`, `${req.currentUser!.userId}`, `${conversationObjectId}`)
     await messageCache.addChatMessageToCache(`${conversationObjectId}`, messageData)
-    // 4 - add message chat queue
+    chatQueue.addChatJob('addChatMessageToDB', messageData)
 
-    res.status(HTTP_STATUS.OK).json({ message: 'Message added', conversationObjectId })
+    res.status(HTTP_STATUS.OK).json({ message: 'Message added', conversationId: conversationObjectId })
+  }
+
+  public async addChatUsers(req: Request, res: Response): Promise<void> {
+    const chatUsers = await messageCache.addChatUsersToCache(req.body)
+    socketIOChatObject.emit('add chat users', chatUsers)
+    res.status(HTTP_STATUS.OK).json({ message: 'Users added' })
+  }
+
+  public async removeChatUsers(req: Request, res: Response): Promise<void> {
+    const chatUsers = await messageCache.removeChatUsersFromCache(req.body)
+    socketIOChatObject.emit('add chat users', chatUsers)
+    res.status(HTTP_STATUS.OK).json({ message: 'Users removed' })
   }
 
   private emitSocketMessage(message: IMessageData) {

@@ -2,6 +2,7 @@ import { IAuthJob } from '@auth/interfaces/auth.interface'
 import { createBullBoard } from '@bull-board/api'
 import { BullAdapter } from '@bull-board/api/bullAdapter'
 import { ExpressAdapter } from '@bull-board/express'
+import { IChatJobData, IMessageData } from '@chat/interfaces/chat.interface'
 import { ICommentJob } from '@comment/interfaces/comment.interface'
 import { IBlockedUserJobData, IFollowerJobData } from '@follower/interfaces/follower.interface'
 import { IFileImageJobData } from '@image/interfaces/image.interface'
@@ -23,6 +24,8 @@ type IBaseJobData =
   | IBlockedUserJobData
   | INotificationJobData
   | IFileImageJobData
+  | IChatJobData
+  | IMessageData
 
 let bullAdapters: BullAdapter[] = []
 
